@@ -13,8 +13,8 @@
                 </div>
             </div>
             <div class="col">
-                <label v-if="loadInProgress==false">Произошла ошибка при загрузке данных</label>
-                <label v-if="loadInProgress==true">Данные загружаются</label>
+                <label class="col-form-label" v-if="loadInProgress==false">Произошла ошибка при загрузке данных</label>
+                <label class="col-form-label" v-if="loadInProgress==true">Данные загружаются</label>
             </div>
         </div>
     </div>
@@ -32,25 +32,25 @@
                 @*Погода сейчас*@
                 <div class="col d-flex flex-column" v-if="tab=='current'">
                     <div class="d-flex flex-column gap-3 p-3 border">
-                        <label>Текущая погода<label>
+                        <label class ="col-form-label">Текущая погода<label>
                     </div>
                     <div class="d-flex flex-column gap-3 p-3 border">
                         <div>
-                            <label>Условия: {{this.forecastData!=null?this.forecastData?.current?.condition?.text??"":""}}</label>
+                            <label class="col-form-label">Условия: {{this.forecastData!=null?this.forecastData?.current?.condition?.text??"":""}}</label>
                         </div>
                     </div>
                 </div>
                 @*Прогноз погоды*@
                 <div class="col d-flex flex-column" v-if="tab=='forecast'">
                     <div class="d-flex flex-column gap-3 p-3 border">
-                        <label>Прогноз</label>
+                        <label class="col-form-label">Прогноз</label>
                     </div>
                     <div v-if="forecastData!=null" class="d-flex flex-column gap-3 p-3 border">
                         <template v-for="item of forecastData.forecast.forecastday">
-                            <label class="border">{{item.date??""}}</label>
+                            <label class="col-form-label border">{{item.date??""}}</label>
                             <template v-for="item of item.hour">
-                                <label>{{new Date(item.time).toLocaleTimeString()}}</label>
-                                <label>Условия: {{item.condition?.text??""??""}}</label>
+                                <label class="col-form-label">{{new Date(item.time).toLocaleTimeString()}}</label>
+                                <label class="col-form-label">Условия: {{item.condition?.text??""??""}}</label>
                             </template>
                         </template>
                     </div>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div v-else class="row">
-                <label>Данные загружаются</label>
+                <label class="col-form-label">Данные загружаются</label>
             </div>
 
         </div>
