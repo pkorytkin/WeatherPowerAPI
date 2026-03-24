@@ -70,6 +70,7 @@ namespace WeatherAPI.Services
                 var dto = await JsonSerializer.DeserializeAsync<ForecastWeatherAPIResponseDTO>(res.Content.ReadAsStream());
 
                 ArgumentNullException.ThrowIfNull(dto, "Не удалось десериализовать ответ Weather API. Возможно устарела реализация API.");
+                ArgumentNullException.ThrowIfNull(dto.forecast, "Не удалось десериализовать ответ Weather API. Нет информации о прогнозе по какой-то причине.");
 
                 var currentHour = DateTime.Now.Hour;
                 if (dto.forecast != null&& dto.forecast.forecastday != null&&dto.forecast.forecastday.Count > 0)
