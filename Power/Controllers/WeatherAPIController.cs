@@ -1,10 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Power.DTO;
 using Power.Models.WeatherAPI;
 using Power.Request;
-using System.Threading;
 
 namespace Power.Controllers
 {

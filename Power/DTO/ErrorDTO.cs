@@ -31,7 +31,6 @@
         /// <summary>
         /// Переопределение оператора хэширования
         /// </summary>
-        /// <param name="obj"></param>
         /// <returns></returns>
         public override int GetHashCode()
         {

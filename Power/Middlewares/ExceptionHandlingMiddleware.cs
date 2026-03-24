@@ -1,5 +1,4 @@
 ﻿using Power.DTO;
-using System.ComponentModel.DataAnnotations;
 using WeatherAPI.Exceptions;
 
 namespace Power.Middlewares

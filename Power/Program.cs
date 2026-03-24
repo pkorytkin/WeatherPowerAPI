@@ -1,7 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
-using Power.Controllers;
 using Power.Middlewares;
 using System.Reflection;
 using WeatherAPI.Services;
