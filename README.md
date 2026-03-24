@@ -2,16 +2,20 @@
 
 **На фронте:**
 
-Vue.Js
+1. Vue.Js
 
-Bootstrap на фронте. 
+2. Bootstrap
 
 **На бэкенде:**
 
-Mediatr
+1. Mediatr
 
-.Net 10
+2. .Net 10
+
+3. Swagger
 
 **Важно:**
 
 Для работы необходимо прописать в appsettings.json ключ к WeatherAPI.
+
+На проекте есть swagger доступный по /swagger
