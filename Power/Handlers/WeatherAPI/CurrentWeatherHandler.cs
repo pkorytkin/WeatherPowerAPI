@@ -23,11 +23,11 @@ namespace Power.Handlers.WeatherAPI
             this.logger = logger;
         }
         /// <summary>
-        /// Обработка
+        /// Обработка запроса через медиатор пришедшего
         /// </summary>
-        /// <param name="request"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <param name="request">Параметры запроса</param>
+        /// <param name="cancellationToken">Токен отмены</param>
+        /// <returns>DTO ответа от сервиса</returns>
         public async Task<CurrentWeatherAPIResponseDTO> Handle(CurrentWeatherRequest request, CancellationToken cancellationToken)
         {
             return await weatherAPIService.GetCurrentWeather();

@@ -21,8 +21,8 @@ namespace Power.Controllers
         /// <summary>
         /// Конструктор для контроллера
         /// </summary>
-        /// <param name="mediator"></param>
-        /// <param name="logger"></param>
+        /// <param name="mediator">медиатр его интерфейс</param>
+        /// <param name="logger">интерфейс логировщика</param>
         public WeatherAPIController(IMediator mediator, ILogger<WeatherAPIController> logger)
         {
             this.mediator = mediator;
@@ -33,6 +33,7 @@ namespace Power.Controllers
         /// </summary>
         /// <response code="200">Вернёт информацию о прогнозе погоды</response>
         /// <response code="400">Что-то пошло не так</response>
+        /// <param name="cancellationToken">Токен отмены</param>
         [ProducesResponseType(typeof(CurrentWeatherAPIResponseDTO), StatusCodes.Status200OK, contentType: "application/json")]
         [ProducesResponseType(typeof(ErrorDTO), StatusCodes.Status400BadRequest)]
         [HttpGet("[controller]/GetCurrentWeather")]
@@ -47,6 +48,9 @@ namespace Power.Controllers
         /// </summary>
         /// <response code="200">Вернёт информацию о прогнозе погоды</response>
         /// <response code="400">Что-то пошло не так</response>
+        /// <param name="Days">Дней в прогнозе</param>
+        /// <param name="cancellationToken">Токен отмены</param>
+
         [ProducesResponseType(typeof(ForecastWeatherAPIResponseDTO),StatusCodes.Status200OK,contentType:"application/json")]
         [ProducesResponseType(typeof(ErrorDTO), StatusCodes.Status400BadRequest)]
         [HttpGet("[controller]/GetWeatherForecast")]

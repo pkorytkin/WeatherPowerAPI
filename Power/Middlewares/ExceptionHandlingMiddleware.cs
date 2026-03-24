@@ -4,6 +4,9 @@ using WeatherAPI.Exceptions;
 
 namespace Power.Middlewares
 {
+    /// <summary>
+    /// Модлвеир для перехвата ошибок
+    /// </summary>
     public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
