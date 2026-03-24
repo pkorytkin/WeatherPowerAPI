@@ -8,7 +8,7 @@
     <div class="container" v-if="tab=='error'">
         <div class="row">
             <div class="col-auto  d-flex flex-column">
-                <div class="d-flex flex-column gap-3 p-3 border">
+                <div class="d-flex flex-column gap-3 p-3 border rounded">
                     <button class="btn btn-primary" :class="loadInProgress==true?'btn-dark':'btn-light'" v-on:click="reloadInfo">Перезагрузить</button>
                 </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="row">
             @*Список кнопок*@
             <div class="col-auto  d-flex flex-column">
-                <div class="d-flex flex-column gap-3 p-3 border">
+                <div class="d-flex flex-column gap-3 p-3 border rounded">
                     <button class="btn btn-primary" :class="tab=='current'?'btn-dark':'btn-light'" v-on:click="openCurrent">Сейчас</button>
                     <button class="btn btn-primary" :class="tab=='forecast'?'btn-dark':'btn-light'" v-on:click="openForecast">Прогноз</button>
                     <button class="btn btn-primary" :class="loadInProgress==true?'btn-dark':'btn-light'" v-on:click="reloadInfo">Обновить</button>
@@ -31,10 +31,10 @@
             <div class="col" v-if="loadInProgress==false">
                 @*Погода сейчас*@
                 <div class="col d-flex flex-column" v-if="tab=='current'">
-                    <div class="d-flex flex-column gap-3 p-3 border">
+                    <div class="d-flex flex-column gap-3 p-3 border rounded">
                         <label class ="col-form-label">Текущая погода<label>
                     </div>
-                    <div class="d-flex flex-column gap-3 p-3 border">
+                    <div class="d-flex flex-column gap-3 p-3 border rounded">
                         <div>
                             <label class="col-form-label">Условия: {{this.forecastData!=null?this.forecastData?.current?.condition?.text??"":""}}</label>
                         </div>
@@ -42,12 +42,12 @@
                 </div>
                 @*Прогноз погоды*@
                 <div class="col d-flex flex-column" v-if="tab=='forecast'">
-                    <div class="d-flex flex-column gap-3 p-3 border">
+                    <div class="d-flex flex-column gap-3 p-3 border rounded">
                         <label class="col-form-label">Прогноз</label>
                     </div>
-                    <div v-if="forecastData!=null" class="d-flex flex-column gap-3 p-3 border">
+                    <div v-if="forecastData!=null" class="d-flex flex-column gap-3 p-3 border rounded">
                         <template v-for="item of forecastData.forecast.forecastday">
-                            <label class="col-form-label border">{{item.date??""}}</label>
+                            <label class="col-form-label border rounded">{{item.date??""}}</label>
                             <template v-for="item of item.hour">
                                 <label class="col-form-label">{{new Date(item.time).toLocaleTimeString()}}</label>
                                 <label class="col-form-label">Условия: {{item.condition?.text??""??""}}</label>
