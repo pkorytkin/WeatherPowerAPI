@@ -5,7 +5,7 @@ namespace Power.Request
     /// <summary>
     /// Запрос через mediatr 
     /// </summary>
-    public class CurrentWeatherRequest: IRequest<CurrentWeatherAPIResponseDTO>
+    public class CurrentWeatherRequest : IRequest<CurrentWeatherAPIResponseDTO>
     {
     }
 }

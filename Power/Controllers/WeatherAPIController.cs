@@ -11,7 +11,7 @@ namespace Power.Controllers
     /// </summary>
     [ApiController]
     [ApiExplorerSettings(IgnoreApi = false)]
-   
+
     public class WeatherAPIController : Controller
     {
         private readonly IMediator mediator;
@@ -37,7 +37,7 @@ namespace Power.Controllers
         [HttpGet("[controller]/GetCurrentWeather")]
         public async Task<IActionResult> GetCurrentWeather(CancellationToken cancellationToken)
         {
-            var result=await mediator.Send(new CurrentWeatherRequest(), cancellationToken);
+            var result = await mediator.Send(new CurrentWeatherRequest(), cancellationToken);
             ArgumentNullException.ThrowIfNull(result);
             return Ok(result);
         }
@@ -49,10 +49,10 @@ namespace Power.Controllers
         /// <param name="Days">Дней в прогнозе</param>
         /// <param name="cancellationToken">Токен отмены</param>
 
-        [ProducesResponseType(typeof(ForecastWeatherAPIResponseDTO),StatusCodes.Status200OK,contentType:"application/json")]
+        [ProducesResponseType(typeof(ForecastWeatherAPIResponseDTO), StatusCodes.Status200OK, contentType: "application/json")]
         [ProducesResponseType(typeof(ErrorDTO), StatusCodes.Status400BadRequest)]
         [HttpGet("[controller]/GetWeatherForecast")]
-        public async Task<IActionResult> GetWeatherForecast(CancellationToken cancellationToken,int? Days=3)
+        public async Task<IActionResult> GetWeatherForecast(CancellationToken cancellationToken, int? Days = 3)
         {
             var result = await mediator.Send(new ForecastWeatherRequest(Days), cancellationToken);
             ArgumentNullException.ThrowIfNull(result);
