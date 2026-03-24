@@ -1,0 +1,116 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Прогноз погоды";
+}
+
+<div id="app" class="text-center">
+    <div class="container" v-if="tab=='error'">
+        <div class="row">
+            <div class="col-auto  d-flex flex-column">
+                <div class="d-flex flex-column gap-3 p-3 border">
+                    <button class="btn btn-primary" :class="loadInProgress==true?'btn-dark':'btn-light'" v-on:click="reloadInfo">Перезагрузить</button>
+                </div>
+            </div>
+            <div class="col">
+                <label v-if="loadInProgress==false">Произошла ошибка при загрузке данных</label>
+                <label v-if="loadInProgress==true">Данные загружаются</label>
+            </div>
+        </div>
+    </div>
+    <div class="container" v-else>
+        <div class="row">
+        @*Список кнопок*@
+            <div class="col-auto  d-flex flex-column">
+                <div class="d-flex flex-column gap-3 p-3 border">
+                    <button class="btn btn-primary" :class="tab=='current'?'btn-dark':'btn-light'" v-on:click="openCurrent">Сейчас</button>
+                    <button class="btn btn-primary" :class="tab=='forecast'?'btn-dark':'btn-light'" v-on:click="openForecast">Прогноз</button>
+                    <button class="btn btn-primary" :class="loadInProgress==true?'btn-dark':'btn-light'" v-on:click="reloadInfo">Обновить</button>
+                </div>
+            </div>
+            <div class="col" v-if="loadInProgress==false">
+                @*Погода сейчас*@
+                <div class="col d-flex flex-column" v-if="tab=='current'">
+                    <div class="d-flex flex-column gap-3 p-3 border">
+                        <label>Текущая погода<label>
+                    </div>
+                    <div class="d-flex flex-column gap-3 p-3 border">
+                        <div>
+                            <label>Условия: {{this.forecastData!=null?this.forecastData?.current?.condition?.text??"":""}}</label>
+                        </div>
+                    </div>
+                </div>
+                @*Прогноз погоды*@
+                <div class="col d-flex flex-column" v-if="tab=='forecast'">
+                    <div class="d-flex flex-column gap-3 p-3 border">
+                        <label>Прогноз</label>
+                    </div>
+                    <div class="d-flex flex-column gap-3 p-3 border">
+                        <template v-for="item of forecastData.forecast.forecastday">
+                            <label class="border">{{item.date??""}}</label>
+                            <template v-for="item of item.hour">
+                                <label>{{new Date(item.time).toLocaleTimeString()}}</label>
+                                <label>Условия: {{item.condition?.text??""??""}}</label>
+                            </template>
+                        </template>
+                    </div>
+
+                </div>
+            </div>
+            <div v-else class="row">
+                <label>Данные загружаются</label>
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+<script asp-append-version="true">
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                tab: 'current',
+                dataIsLoaded:false,
+                forecastData:null,
+                loadInProgress:false
+            }
+        },
+        mounted:function(){
+            this.reloadInfo();
+        },
+        methods: {
+            openCurrent() {
+                this.tab='current';
+            },
+            openForecast() {
+                this.tab='forecast';
+            },
+            reloadInfo() {
+                if(this.loadInProgress){
+                    return;
+                }
+                this.loadInProgress=true;
+                $.ajax({
+                url: "WeatherAPI/GetWeatherForecast",
+                method: 'get',
+                success: (data) => {
+                    this.dataIsLoaded = true;
+                    this.tab=this.tab=='error'?'current':this.tab;
+                    this.forecastData=data;
+                    this.loadInProgress=false;
+                },
+                error: (xhr, status, error) => {
+                   this.tab="error";
+                   this.forecastData=null;
+                   this.loadInProgress=false;
+                }
+            });
+            },
+    },
+    }).mount('#app');
+</script>
