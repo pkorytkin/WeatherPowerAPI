@@ -74,10 +74,10 @@
     createApp({
         data() {
             return {
-                tab: 'current',
-                dataIsLoaded:false,
-                forecastData:null,
-                loadInProgress:false
+                tab : 'current',
+                dataIsLoaded : false,
+                forecastData : null,
+                loadInProgress : false
             }
         },
         mounted:function(){
@@ -85,29 +85,30 @@
         },
         methods: {
             openCurrent() {
-                this.tab='current';
+                this.tab = 'current';
             },
             openForecast() {
-                this.tab='forecast';
+                this.tab = 'forecast';
             },
             reloadInfo() {
                 if(this.loadInProgress){
                     return;
                 }
-                this.loadInProgress=true;
+                this.loadInProgress = true;
                 $.ajax({
                 url: "WeatherAPI/GetWeatherForecast",
                 method: 'get',
                 success: (data) => {
                     this.dataIsLoaded = true;
-                    this.tab=this.tab=='error'?'current':this.tab;
-                    this.forecastData=data;
-                    this.loadInProgress=false;
+                    this.tab=this.tab == 'error' ? 'current' : this.tab;
+                    this.forecastData  =data;
+                    this.loadInProgress = false;
                 },
                 error: (xhr, status, error) => {
-                   this.tab="error";
-                   this.forecastData=null;
-                   this.loadInProgress=false;
+                   this.tab = "error";
+                   this.dataIsLoaded = false;
+                   this.forecastData = null;
+                   this.loadInProgress = false;
                 }
             });
             },
