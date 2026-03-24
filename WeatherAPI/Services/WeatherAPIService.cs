@@ -71,6 +71,15 @@ namespace WeatherAPI.Services
 
                 ArgumentNullException.ThrowIfNull(dto, "Не удалось десериализовать ответ Weather API. Возможно устарела реализация API.");
 
+                var currentHour = DateTime.Now.Hour;
+                if (dto.forecast != null&& dto.forecast.forecastday != null&&dto.forecast.forecastday.Count > 0)
+                {
+                    //Удаляем часы на сегодня, которые старые
+                    var hours = dto.forecast.forecastday[0].hour ?? new List<HourDTO>(0);
+                    
+                    dto.forecast.forecastday[0].hour = hours.Where(x => !string.IsNullOrEmpty(x.time) && DateTime.Parse(x.time ?? "").Hour >= currentHour).ToList();
+                    
+                }
                 return dto;
             }
             catch (Exception ex)
